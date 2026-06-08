@@ -1,3 +1,5 @@
+import { ELEMIX_VERSION } from './generated/elemix-meta';
+
 const SUBPATHS = [
     '@neuralfog/elemix',
     '@neuralfog/elemix/state',
@@ -9,7 +11,7 @@ const SUBPATHS = [
 ];
 
 const importMap = (origin: string): string => {
-    const bundle = `${origin}/elemix/elemix.js`;
+    const bundle = `${origin}/elemix/elemix.js?v=${ELEMIX_VERSION}`;
     const imports = Object.fromEntries(SUBPATHS.map((p) => [p, bundle]));
     return JSON.stringify({ imports }, null, 2);
 };

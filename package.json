@@ -1,0 +1,29 @@
+{
+    "name": "elemix-playground",
+    "private": true,
+    "version": "0.1.0",
+    "type": "module",
+    "scripts": {
+        "gen-types": "node scripts/gen-types.mjs",
+        "sync-elemix": "node scripts/sync-elemix.mjs",
+        "sync-elemix:update": "node scripts/sync-elemix.mjs --update && pnpm gen-types",
+        "predev": "pnpm sync-elemix && pnpm gen-types",
+        "dev": "vite",
+        "prebuild": "pnpm sync-elemix && pnpm gen-types",
+        "build": "vite build",
+        "preview": "vite preview",
+        "lint": "tsc --noEmit && biome format && biome lint",
+        "lint:fix": "biome format --write && biome lint --fix"
+    },
+    "devDependencies": {
+        "@biomejs/biome": "1.9.4",
+        "@neuralfog/biome-config": "0.1.2",
+        "typescript": "6.0.3",
+        "vite": "8.0.16"
+    },
+    "dependencies": {
+        "esbuild-wasm": "0.28.0",
+        "monaco-editor": "0.53.0",
+        "sass": "1.100.0"
+    }
+}

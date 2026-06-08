@@ -1,0 +1,5 @@
+node_modules
+dist
+elemix-src
+src/generated
+public/elemix/elemix.js

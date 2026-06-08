@@ -1,0 +1,9 @@
+services:
+  playground:
+    build:
+      context: .
+    image: elemix-playground:latest
+    container_name: elemix-playground
+    restart: unless-stopped
+    ports:
+      - "8091:8091"

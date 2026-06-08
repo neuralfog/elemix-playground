@@ -1,0 +1,21 @@
+{
+    "extends": ["@neuralfog/biome-config/biome"],
+    "files": {
+        "ignore": [
+            "node_modules/**/*",
+            "dist/**/*",
+            "elemix-src/**/*",
+            "public/elemix/**/*",
+            "src/generated/**/*"
+        ]
+    },
+    "formatter": {
+        "ignore": [
+            "node_modules/**/*",
+            "dist/**/*",
+            "elemix-src/**/*",
+            "public/elemix/**/*",
+            "src/generated/**/*"
+        ]
+    }
+}

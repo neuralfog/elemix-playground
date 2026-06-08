@@ -1,0 +1,12 @@
+node_modules
+dist
+elemix-src
+src/generated
+public/elemix
+.git
+.github
+coverage
+.vscode
+.idea
+.DS_Store
+*.log

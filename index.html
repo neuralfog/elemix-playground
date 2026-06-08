@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Elemix Playground</title>
+        <link
+            rel="icon"
+            href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>"
+        />
+        <style>
+            html {
+                background: #0c0c0f;
+            }
+        </style>
+        <link rel="stylesheet" href="/src/style.css" />
+    </head>
+    <body>
+        <div id="app">
+            <header id="toolbar">
+                <span class="brand">
+                    <span class="brand-mark">⚡</span>
+                    <span class="brand-name">Elemix</span>
+                    <span class="brand-sub">Playground</span>
+                    <span class="brand-version" id="brand-version"></span>
+                </span>
+
+                <div class="app-select" id="app-select">
+                    <button class="app-trigger" id="app-trigger" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="app-prefix">Example</span>
+                        <span class="app-trigger-label" id="app-current">Counter</span>
+                        <span class="app-caret">▾</span>
+                    </button>
+                    <div class="app-menu" id="app-menu" role="listbox" hidden></div>
+                </div>
+
+                <div class="spacer"></div>
+                <label class="auto-toggle">
+                    <input type="checkbox" id="auto-run" checked />
+                    Auto-run
+                </label>
+                <button id="run-btn" title="Run (Ctrl/Cmd+Enter)">Run</button>
+            </header>
+            <main id="workspace">
+                <nav id="filetree"></nav>
+                <section id="editor-pane">
+                    <div id="tabs"></div>
+                    <div id="editor"></div>
+                </section>
+                <div id="divider"></div>
+                <section id="preview-pane">
+                    <div id="preview-header">Preview</div>
+                    <iframe id="preview" title="preview" sandbox="allow-scripts allow-modals allow-same-origin allow-forms"></iframe>
+                    <div id="console-divider"></div>
+                    <div id="console-panel">
+                        <div id="console-header">
+                            <button id="toggle-console" class="console-toggle" title="Hide console" aria-label="Toggle console">▾</button>
+                            <span class="console-title">Console</span>
+                            <span id="console-count" class="console-count"></span>
+                            <div class="spacer"></div>
+                            <button id="clear-console" title="Clear console">Clear</button>
+                        </div>
+                        <div id="console"></div>
+                    </div>
+                </section>
+            </main>
+        </div>
+        <script type="module" src="/src/main.ts"></script>
+    </body>
+</html>

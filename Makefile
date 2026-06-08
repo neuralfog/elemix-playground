@@ -1,4 +1,4 @@
-.PHONY: dev assets image up down install
+.PHONY: dev assets image rebuild up down install
 
 dev:
 	@pnpm dev
@@ -9,13 +9,16 @@ assets:
 image:
 	@docker compose build
 
+rebuild:
+	@docker compose build --no-cache --pull
+
 up:
 	@docker compose up -d
 
 down:
 	@docker compose down
 
-install: image
+install: rebuild
 	@sed "s|^WorkingDirectory=.*|WorkingDirectory=$(CURDIR)|" elemix-playground.service \
 		> /etc/systemd/system/elemix-playground.service
 	@systemctl daemon-reload

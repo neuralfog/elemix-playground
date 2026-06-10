@@ -13,16 +13,22 @@ RUN pnpm install --frozen-lockfile
 
 COPY . .
 
-# Sync happens here: clone + build Elemix, copy the bundle into public/elemix,
-# generate the .d.ts map, then build the playground. Run explicitly so we don't
-# rely on pnpm's pre/post-script behaviour.
 RUN pnpm sync-elemix && pnpm gen-types && pnpm build
 
-FROM ghcr.io/brownhounds/go-static:latest
-COPY --from=build /app/dist /app
+# Build the swift static server (serves dist with correct Cache-Control).
+FROM golang:1.26-alpine AS server
+WORKDIR /src
+COPY server/go.mod server/go.sum ./
+RUN go mod download
+COPY server/ ./
+RUN CGO_ENABLED=0 go build -o /playground .
+
+FROM alpine:3
+WORKDIR /app
+COPY --from=build /app/dist ./dist
+COPY --from=server /playground /usr/local/bin/playground
+ENV HOST=0.0.0.0
 ENV PORT=8091
-ENV IS_SPA=false
-ENV SPA_ENTRYPOINT=index.html
-ENV STATIC_FOLDER=/app
-ENV PUBLIC_PATH=/
+ENV STATIC_DIR=/app/dist
 EXPOSE 8091
+CMD ["playground"]

@@ -1479,7 +1479,7 @@ export const record = (event: string): void => {
 
 export const clearLog = (): void => {
     seq = 0;
-    log.value.entries.length = 0;
+    log.value.entries.splice(0);
 };
 `;
 

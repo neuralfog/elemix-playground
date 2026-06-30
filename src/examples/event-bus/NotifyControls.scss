@@ -1,0 +1,36 @@
+:host {
+    display: block;
+    margin-bottom: 16px;
+}
+
+.controls {
+    display: flex;
+    gap: 8px;
+}
+
+button {
+    font: inherit;
+    font-size: 14px;
+    padding: 8px 16px;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: filter 0.15s ease;
+
+    &:hover {
+        filter: brightness(1.08);
+    }
+
+    &.info {
+        background: #6366f1;
+    }
+
+    &.success {
+        background: #16a34a;
+    }
+
+    &.warn {
+        background: #d97706;
+    }
+}

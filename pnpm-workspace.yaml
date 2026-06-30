@@ -1,3 +1,5 @@
 allowBuilds:
   '@biomejs/biome': true
   '@parcel/watcher': true
+minimumReleaseAgeExclude:
+  - '@neuralfog/*'

@@ -99,9 +99,44 @@ const MANIFEST: { id: string; name: string; files: string[] }[] = [
         ],
     },
     {
+        id: 'effects',
+        name: 'Effects',
+        files: ['main.ts', 'ChatApp.ts', 'ChatApp.scss'],
+    },
+    {
         id: 'refs',
         name: 'Refs',
         files: ['main.ts', 'RefApp.ts', 'RefApp.scss'],
+    },
+    {
+        id: 'no-shadow',
+        name: 'No Shadow',
+        files: ['main.ts', 'PageAlert.ts', 'page.scss'],
+    },
+    {
+        id: 'custom-events',
+        name: 'Custom Events',
+        files: [
+            'main.ts',
+            'RatingApp.ts',
+            'RatingApp.scss',
+            'StarRating.ts',
+            'StarRating.scss',
+        ],
+    },
+    {
+        id: 'event-bus',
+        name: 'Event Bus',
+        files: [
+            'main.ts',
+            'bus.ts',
+            'BusApp.ts',
+            'BusApp.scss',
+            'NotifyControls.ts',
+            'NotifyControls.scss',
+            'NotifyFeed.ts',
+            'NotifyFeed.scss',
+        ],
     },
     {
         id: 'slots',

@@ -100,7 +100,7 @@ const configureTypeScript = (): void => {
     const tplRule: monaco.languages.IMonarchLanguageRule = [
         /(tpl|html)(`)/,
         [
-            'identifier',
+            'attribute.binding',
             { token: 'string', next: '@tplHtml', nextEmbedded: 'elemix-html' },
         ],
     ];

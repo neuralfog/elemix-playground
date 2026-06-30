@@ -6,7 +6,8 @@
             "dist/**/*",
             "elemix-src/**/*",
             "public/elemix/**/*",
-            "src/generated/**/*"
+            "src/generated/**/*",
+            "src/examples/**/*"
         ]
     },
     "formatter": {
@@ -15,7 +16,8 @@
             "dist/**/*",
             "elemix-src/**/*",
             "public/elemix/**/*",
-            "src/generated/**/*"
+            "src/generated/**/*",
+            "src/examples/**/*"
         ]
     }
 }

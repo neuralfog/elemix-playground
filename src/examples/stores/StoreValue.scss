@@ -1,0 +1,17 @@
+:host {
+    display: block;
+    font-family: system-ui, sans-serif;
+}
+
+.value {
+    margin-bottom: 16px;
+    font-size: 64px;
+    font-weight: 800;
+    line-height: 1;
+    text-align: center;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}

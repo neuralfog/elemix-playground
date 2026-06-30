@@ -1,0 +1,13 @@
+:host {
+    display: block;
+    font-family: system-ui, sans-serif;
+}
+
+.child {
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    border-radius: 10px;
+}

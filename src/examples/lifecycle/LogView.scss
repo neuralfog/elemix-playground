@@ -1,0 +1,52 @@
+:host {
+    display: block;
+}
+
+.log {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    max-height: 180px;
+    overflow-y: auto;
+    padding: 8px;
+    background: #0f172a;
+    border-radius: 10px;
+}
+
+.empty {
+    padding: 10px;
+    font-family: system-ui, sans-serif;
+    font-size: 13px;
+    color: #64748b;
+}
+
+.entry {
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+    padding: 3px 8px;
+    font-family: ui-monospace, monospace;
+    font-size: 13px;
+    color: #cbd5e1;
+}
+
+.entry .n {
+    min-width: 18px;
+    color: #64748b;
+}
+
+.entry.beforeMount {
+    color: #7dd3fc;
+}
+
+.entry.onMount {
+    color: #86efac;
+}
+
+.entry.onMutation {
+    color: #fbbf24;
+}
+
+.entry.onDispose {
+    color: #f87171;
+}

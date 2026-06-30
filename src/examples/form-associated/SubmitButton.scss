@@ -1,0 +1,17 @@
+:host {
+    display: inline-block;
+}
+
+button {
+    font: inherit;
+    padding: 9px 18px;
+    border: none;
+    border-radius: 8px;
+    background: #6366f1;
+    color: white;
+    cursor: pointer;
+
+    &:hover {
+        background: #4f46e5;
+    }
+}

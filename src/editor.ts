@@ -11,6 +11,10 @@ import {
     language as cssLang,
 } from 'monaco-editor/esm/vs/basic-languages/css/css.js';
 import { language as tsLang } from 'monaco-editor/esm/vs/basic-languages/typescript/typescript.js';
+import {
+    conf as htmlConf,
+    language as htmlLang,
+} from 'monaco-editor/esm/vs/basic-languages/html/html.js';
 import { elemixDts } from './generated/elemix-dts';
 import type { Files } from './files';
 
@@ -50,15 +54,61 @@ const configureTypeScript = (): void => {
     monaco.languages.setLanguageConfiguration('css', cssConf);
     monaco.languages.setMonarchTokensProvider('css', cssLang);
 
+    // HTML is embedded inside `tpl`/`html` template literals (see decoratedTs).
+    // Register its grammar so the embedding has a tokenizer to delegate to.
+    if (!monaco.languages.getLanguages().some((l) => l.id === 'html')) {
+        monaco.languages.register({ id: 'html' });
+    }
+    monaco.languages.setLanguageConfiguration('html', htmlConf);
+    monaco.languages.setMonarchTokensProvider('html', htmlLang);
+
     const decoratorRule: monaco.languages.IMonarchLanguageRule = [
         /@[a-zA-Z_$][\w$]*/,
         'annotation',
+    ];
+
+    // `tpl`/`html` tagged templates carry HTML — tokenize their contents with
+    // the embedded HTML grammar. Each `${…}` interpolation is handed back to TS:
+    // `bracketCounting` (a stock state) already balances nested braces and even
+    // nested `tpl`` templates, and the closing `}` re-embeds HTML.
+    const tplRule: monaco.languages.IMonarchLanguageRule = [
+        /(tpl|html)(`)/,
+        [
+            'identifier',
+            { token: 'string', next: '@tplHtml', nextEmbedded: 'html' },
+        ],
     ];
     const decoratedTs: monaco.languages.IMonarchLanguage = {
         ...tsLang,
         tokenizer: {
             ...tsLang.tokenizer,
-            common: [decoratorRule, ...tsLang.tokenizer.common],
+            common: [decoratorRule, tplRule, ...tsLang.tokenizer.common],
+            tplHtml: [
+                [
+                    /\$\{/,
+                    {
+                        token: 'delimiter.bracket',
+                        next: '@tplInterp',
+                        nextEmbedded: '@pop',
+                    },
+                ],
+                [/`/, { token: 'string', next: '@pop', nextEmbedded: '@pop' }],
+            ],
+            tplInterp: [
+                [
+                    /\}/,
+                    {
+                        token: 'delimiter.bracket',
+                        next: '@pop',
+                        nextEmbedded: 'html',
+                    },
+                ],
+                [
+                    /\{/,
+                    { token: 'delimiter.bracket', next: '@bracketCounting' },
+                ],
+                { include: 'common' },
+            ],
         },
     };
     monaco.languages.setMonarchTokensProvider('typescript', decoratedTs);
@@ -231,6 +281,12 @@ export const createEditor = (
         roundedSelection: true,
         padding: { top: 14, bottom: 14 },
         scrollbar: { verticalScrollbarSize: 10, horizontalScrollbarSize: 10 },
+        // The examples intentionally use typographic glyphs like U+2212 minus
+        // (− buttons) and en/em dashes in copy — don't flag them as confusable.
+        unicodeHighlight: {
+            ambiguousCharacters: false,
+            invisibleCharacters: false,
+        },
     });
 
     return {

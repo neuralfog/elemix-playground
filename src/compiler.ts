@@ -11,7 +11,7 @@ let ready: Promise<void> | null = null;
 
 // Init both wasm engines once: esbuild (bundling) and the elemix compiler
 // (template/hint lowering). Every `.ts` source is lowered by elemix before
-// esbuild ever sees it — `tpl` is compile-only and throws at runtime raw.
+// esbuild ever sees it - `tpl` is compile-only and throws at runtime raw.
 const init = (): Promise<void> => {
     ready ??= Promise.all([
         esbuild.initialize({ wasmURL, worker: true }),

@@ -28,7 +28,7 @@ export class RefApp extends Component {
     template = (): Template => tpl`
         <p class="note">
             <code>:ref</code> binds a DOM node to a <code>ref()</code>. Read the
-            element imperatively through <code>this.input.value</code> — here to
+            element imperatively through <code>this.input.value</code> - here to
             focus the field and measure its width.
         </p>
         <input type="text" :ref=${this.input} placeholder="Type something…" />

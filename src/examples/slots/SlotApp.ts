@@ -21,7 +21,7 @@ export class SlotApp extends Component {
             <span slot="footer">Updated just now</span>
         </app-card>
         <app-card>
-            <p>This card has only body content — no header or footer slot.</p>
+            <p>This card has only body content - no header or footer slot.</p>
         </app-card>
     `;
 }

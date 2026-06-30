@@ -20,7 +20,7 @@ export class LogView extends Component {
                       </div>`,
                       (e) => String(e.id),
                   )
-                : tpl`<div class="empty">No events yet — mount the child.</div>`
+                : tpl`<div class="empty">No events yet - mount the child.</div>`
         }
     </div>`;
 }

@@ -33,7 +33,7 @@ export class StatusApp extends Component {
     template = (): Template => tpl`
         <p class="note">
             <code>choose</code> renders the first branch whose condition is
-            truthy — use <code>[true, ...]</code> as the fallback.
+            truthy - use <code>[true, ...]</code> as the fallback.
             <code>when</code> renders one branch or nothing. Both take lazy
             factory functions, so only the chosen branch is ever built.
         </p>

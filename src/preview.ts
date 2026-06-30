@@ -2,7 +2,7 @@ import { ELEMIX_VERSION } from './generated/elemix-meta';
 
 // Each entry maps to its own dist module. They share the reactive core via a
 // common `./chunk.js` (resolved relative to these URLs), so the singletons stay
-// shared — do NOT collapse them onto one bundle.
+// shared - do NOT collapse them onto one bundle.
 const importMap = (origin: string): string => {
     const base = `${origin}/elemix`;
     const v = ELEMIX_VERSION;

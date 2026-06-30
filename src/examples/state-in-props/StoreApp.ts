@@ -23,7 +23,7 @@ export class StoreApp extends Component {
             The <code>counter</code> object lives in this parent's reactive
             state and is passed down as a prop. Objects are shared by reference,
             so when the child mutates <code>this.props.counter.value</code>,
-            every component subscribed to that object re-renders — including
+            every component subscribed to that object re-renders - including
             this parent.
         </p>
         <div class="readout">

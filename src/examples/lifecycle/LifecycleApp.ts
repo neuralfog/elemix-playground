@@ -36,7 +36,7 @@ export class LifecycleApp extends Component {
 
     template = (): Template => tpl`
         <p class="note">
-            The child tags its lifecycle methods with compiler hints —
+            The child tags its lifecycle methods with compiler hints -
             <code>#before-mount</code>, <code>#mount</code> and
             <code>#dispose</code>. Mounting and unmounting it fires each hook, in
             source order, which appends to the log below. Updating bumps the

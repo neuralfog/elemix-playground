@@ -1,8 +1,7 @@
-import { Component, defineComponent, html, type Template } from '@neuralfog/elemix';
-import { state } from '@neuralfog/elemix/state';
+import { Component, tpl } from '@neuralfog/elemix';
+import type { Template } from '@neuralfog/elemix/types';
 
 import css from './FormApp.scss?inline';
-
 import './RatingInput';
 import './SubmitButton';
 
@@ -10,10 +9,13 @@ type State = {
     result: string;
 };
 
+// #component
 export class FormApp extends Component {
-    static styles = [css];
+    // #styles
+    styles = css;
 
-    state = state<State>({ result: '' });
+    // #state
+    state: State = { result: '' };
 
     submit = (e: Event): void => {
         e.preventDefault();
@@ -21,11 +23,13 @@ export class FormApp extends Component {
         this.state.result = JSON.stringify(Object.fromEntries(data), null, 2);
     };
 
-    template = (): Template => html`
+    template = (): Template => tpl`
         <p class="note">
-            With <code>static formAssociated = true</code>, Elemix attaches
-            <code>ElementInternals</code>. Both the star rating and the submit
-            button are custom elements that take part in the native form.
+            The <code>#form</code> compiler hint makes a component
+            form-associated — Elemix attaches <code>ElementInternals</code> so it
+            can join a native <code>&lt;form&gt;</code>. The star rating and the
+            submit button below are both tagged <code>#form</code>, so the form
+            sees their values on submit.
         </p>
         <form @submit=${this.submit}>
             <label>
@@ -40,10 +44,8 @@ export class FormApp extends Component {
         </form>
         ${
             this.state.result
-                ? html`<pre class="out">${this.state.result}</pre>`
+                ? tpl`<pre class="out">${this.state.result}</pre>`
                 : ''
         }
     `;
 }
-
-defineComponent('form-app', FormApp);

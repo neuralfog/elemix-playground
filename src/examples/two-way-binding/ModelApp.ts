@@ -1,6 +1,5 @@
-import { Component, defineComponent, html, type Template } from '@neuralfog/elemix';
-import { state } from '@neuralfog/elemix/state';
-import { ref, type Ref } from '@neuralfog/elemix/utilities';
+import { Component, ref, tpl } from '@neuralfog/elemix';
+import type { Ref, Template } from '@neuralfog/elemix/types';
 
 import css from './ModelApp.scss?inline';
 
@@ -14,15 +13,18 @@ type State = {
     volume: Ref<string>;
 };
 
+// #component
 export class ModelApp extends Component {
-    static styles = [css];
+    // #styles
+    styles = css;
 
-    state = state<State>({
+    // #state
+    state: State = {
         name: ref('Ada'),
         volume: ref('50'),
-    });
+    };
 
-    template = (): Template => html`
+    template = (): Template => tpl`
         <p class="note">
             <code>~model</code> two-way binds an input to a ref.
             <code>~onmodel</code> runs a transform on every keystroke before the
@@ -42,5 +44,3 @@ export class ModelApp extends Component {
         <div class="out">Volume: ${this.state.volume.value}</div>
     `;
 }
-
-defineComponent('model-app', ModelApp);

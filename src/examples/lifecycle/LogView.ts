@@ -1,26 +1,26 @@
-import { Component, defineComponent, html, type Template } from '@neuralfog/elemix';
+import { Component, tpl } from '@neuralfog/elemix';
 import { repeat } from '@neuralfog/elemix/directives';
+import type { Template } from '@neuralfog/elemix/types';
 
 import css from './LogView.scss?inline';
-
 import { log } from './store';
 
+// #component
 export class LogView extends Component {
-    static styles = [css];
+    // #styles
+    styles = css;
 
-    template = (): Template => html`<div class="log">
+    template = (): Template => tpl`<div class="log">
         ${
-            log.value.entries.length
+            log.entries.length
                 ? repeat(
-                      log.value.entries,
-                      (e) => html`<div .class=${{ entry: true, [e.event]: true }}>
-                          <span class="n">${e.id}</span>${e.event}()
+                      log.entries,
+                      (e) => tpl`<div class=${{ entry: true, [e.hint]: true }}>
+                          <span class="n">${e.id}</span><span class="h">// #${e.hint}</span> ${e.fn}()
                       </div>`,
                       (e) => String(e.id),
                   )
-                : html`<div class="empty">No events yet — mount the child.</div>`
+                : tpl`<div class="empty">No events yet — mount the child.</div>`
         }
     </div>`;
 }
-
-defineComponent('log-view', LogView);

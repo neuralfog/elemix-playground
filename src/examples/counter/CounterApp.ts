@@ -1,23 +1,25 @@
-import { Component, defineComponent, html, type Template } from '@neuralfog/elemix';
-import { state } from '@neuralfog/elemix/state';
+import { Component, tpl } from '@neuralfog/elemix';
+import type { Template } from '@neuralfog/elemix/types';
+
 import css from './CounterApp.scss?inline';
 
 type State = {
     count: number;
 };
 
+// #component
 export class CounterApp extends Component {
-    static styles = [css];
+    // #styles
+    styles = css;
 
-    state = state<State>({ count: 0 });
+    // #state
+    state: State = { count: 0 };
 
     increment = (): void => {
         this.state.count++;
     };
 
-    template = (): Template => html`
+    template = (): Template => tpl`
         <button @click=${this.increment}>count is ${this.state.count}</button>
     `;
 }
-
-defineComponent('counter-app', CounterApp);

@@ -1,4 +1,5 @@
-import { Component, defineComponent, html, type Template } from '@neuralfog/elemix';
+import { Component, tpl } from '@neuralfog/elemix';
+import type { Template } from '@neuralfog/elemix/types';
 
 import css from './StoreControls.scss?inline';
 
@@ -6,8 +7,10 @@ type Props = {
     counter: { value: number };
 };
 
+// #component
 export class StoreControls extends Component<Props> {
-    static styles = [css];
+    // #styles
+    styles = css;
 
     dec = (): void => {
         this.props.counter.value--;
@@ -17,7 +20,7 @@ export class StoreControls extends Component<Props> {
         this.props.counter.value++;
     };
 
-    template = (): Template => html`<div class="panel">
+    template = (): Template => tpl`<div class="panel">
         <span class="label">Child controls</span>
         <div class="buttons">
             <button @click=${this.dec}>−</button>
@@ -26,5 +29,3 @@ export class StoreControls extends Component<Props> {
         </div>
     </div>`;
 }
-
-defineComponent('store-controls', StoreControls);

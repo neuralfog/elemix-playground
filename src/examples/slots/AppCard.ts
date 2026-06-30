@@ -1,23 +1,24 @@
-import { Component, defineComponent, html, type Template } from '@neuralfog/elemix';
+import { Component, tpl } from '@neuralfog/elemix';
+import type { Template } from '@neuralfog/elemix/types';
 
 import css from './AppCard.scss?inline';
 
+// #component
 export class AppCard extends Component {
-    static styles = [css];
+    // #styles
+    styles = css;
 
-    template = (): Template => html`<div class="card">
+    template = (): Template => tpl`<div class="card">
         ${
             this.hasSlot('header')
-                ? html`<div class="header"><slot name="header"></slot></div>`
+                ? tpl`<div class="header"><slot name="header"></slot></div>`
                 : ''
         }
         <div class="body"><slot></slot></div>
         ${
             this.hasSlot('footer')
-                ? html`<div class="footer"><slot name="footer"></slot></div>`
+                ? tpl`<div class="footer"><slot name="footer"></slot></div>`
                 : ''
         }
     </div>`;
 }
-
-defineComponent('app-card', AppCard);

@@ -1,6 +1,6 @@
-import { Component, defineComponent, html, type Template } from '@neuralfog/elemix';
-import { state } from '@neuralfog/elemix/state';
+import { Component, tpl } from '@neuralfog/elemix';
 import { repeat } from '@neuralfog/elemix/directives';
+import type { Template } from '@neuralfog/elemix/types';
 
 import css from './NestedApp.scss?inline';
 
@@ -11,10 +11,13 @@ type State = {
     categories: Category[];
 };
 
+// #component
 export class NestedApp extends Component {
-    static styles = [css];
+    // #styles
+    styles = css;
 
-    state = state<State>({
+    // #state
+    state: State = {
         categories: [
             {
                 id: 'fruit',
@@ -30,13 +33,13 @@ export class NestedApp extends Component {
                 items: [{ id: 'carrot', name: 'Carrot' }],
             },
         ],
-    });
+    };
 
     addItem = (category: Category): void => {
         category.items.push({ id: crypto.randomUUID(), name: 'New item' });
     };
 
-    template = (): Template => html`
+    template = (): Template => tpl`
         <p class="note">
             <code>repeat</code> nests: the outer loop renders categories, each
             with its own inner <code>repeat</code> of items. Both levels are
@@ -45,7 +48,7 @@ export class NestedApp extends Component {
         <div class="tree">
             ${repeat(
                 this.state.categories,
-                (category) => html`<div class="category">
+                (category) => tpl`<div class="category">
                     <div class="head">
                         <strong>${category.name}</strong>
                         <button @click=${() => this.addItem(category)}>+ item</button>
@@ -53,7 +56,7 @@ export class NestedApp extends Component {
                     <ul>
                         ${repeat(
                             category.items,
-                            (item) => html`<li>${item.name}</li>`,
+                            (item) => tpl`<li>${item.name}</li>`,
                             (item) => item.id,
                         )}
                     </ul>
@@ -63,5 +66,3 @@ export class NestedApp extends Component {
         </div>
     `;
 }
-
-defineComponent('nested-app', NestedApp);

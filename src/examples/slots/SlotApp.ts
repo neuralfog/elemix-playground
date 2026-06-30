@@ -1,13 +1,15 @@
-import { Component, defineComponent, html, type Template } from '@neuralfog/elemix';
+import { Component, tpl } from '@neuralfog/elemix';
+import type { Template } from '@neuralfog/elemix/types';
 
 import css from './SlotApp.scss?inline';
-
 import './AppCard';
 
+// #component
 export class SlotApp extends Component {
-    static styles = [css];
+    // #styles
+    styles = css;
 
-    template = (): Template => html`
+    template = (): Template => tpl`
         <p class="note">
             Slots project light-DOM children into a component's shadow DOM.
             <code>hasSlot('footer')</code> lets the card render an area only when
@@ -23,5 +25,3 @@ export class SlotApp extends Component {
         </app-card>
     `;
 }
-
-defineComponent('slot-app', SlotApp);

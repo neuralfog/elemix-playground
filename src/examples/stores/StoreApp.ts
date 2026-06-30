@@ -1,14 +1,16 @@
-import { Component, defineComponent, html, type Template } from '@neuralfog/elemix';
+import { Component, tpl } from '@neuralfog/elemix';
+import type { Template } from '@neuralfog/elemix/types';
 
 import css from './StoreApp.scss?inline';
-
 import './StoreValue';
 import './StoreButtons';
 
+// #component
 export class StoreApp extends Component {
-    static styles = [css];
+    // #styles
+    styles = css;
 
-    template = (): Template => html`
+    template = (): Template => tpl`
         <p class="note">
             A <code>store</code> is global state created in its own module
             (<code>store.ts</code>) and imported wherever it is needed. The two
@@ -20,5 +22,3 @@ export class StoreApp extends Component {
         <store-buttons />
     `;
 }
-
-defineComponent('store-app', StoreApp);

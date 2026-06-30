@@ -9,7 +9,7 @@ import { resolve, dirname, relative, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const here = dirname(fileURLToPath(import.meta.url));
-const distDir = resolve(here, '../elemix-src/packages/elemix/dist');
+const distDir = resolve(here, '../node_modules/@neuralfog/elemix/dist');
 const outFile = resolve(here, '../src/generated/elemix-dts.ts');
 
 const collect = (dir, acc = []) => {
@@ -36,12 +36,9 @@ for (const file of files) {
 
 const subpaths = {
     '.': './index.d.ts',
-    './state': './state.d.ts',
+    './runtime': './runtime.d.ts',
     './directives': './directives.d.ts',
-    './render': './render.d.ts',
-    './signal': './signal.d.ts',
-    './reactive': './reactive.d.ts',
-    './utilities': './utilities.d.ts',
+    './types': './src/types.d.ts',
 };
 
 const pkgJson = {

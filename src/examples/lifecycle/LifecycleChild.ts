@@ -1,31 +1,30 @@
-import { Component, defineComponent, html, type Template } from '@neuralfog/elemix';
+import { Component, tpl } from '@neuralfog/elemix';
+import type { Template } from '@neuralfog/elemix/types';
 
 import css from './LifecycleChild.scss?inline';
-
 import { record } from './store';
 
 type ChildProps = { tick: number };
 
+// #component
 export class LifecycleChild extends Component<ChildProps> {
-    static styles = [css];
+    // #styles
+    styles = css;
 
-    beforeMount(): void {
-        record('beforeMount');
+    // #before-mount
+    prepare(): void {
+        record('before-mount', 'prepare');
     }
 
-    onMount(): void {
-        record('onMount');
+    // #mount
+    ready(): void {
+        record('mount', 'ready');
     }
 
-    onMutation(): void {
-        record('onMutation');
+    // #dispose
+    cleanup(): void {
+        record('dispose', 'cleanup');
     }
 
-    onDispose(): void {
-        record('onDispose');
-    }
-
-    template = (): Template => html`<div class="child">Child · tick ${this.props.tick}</div>`;
+    template = (): Template => tpl`<div class="child">Child · tick ${this.props.tick}</div>`;
 }
-
-defineComponent('lifecycle-child', LifecycleChild);

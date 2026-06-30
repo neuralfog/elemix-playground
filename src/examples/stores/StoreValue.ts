@@ -1,13 +1,13 @@
-import { Component, defineComponent, html, type Template } from '@neuralfog/elemix';
+import { Component, tpl } from '@neuralfog/elemix';
+import type { Template } from '@neuralfog/elemix/types';
 
 import css from './StoreValue.scss?inline';
-
 import { counter } from './store';
 
+// #component
 export class StoreValue extends Component {
-    static styles = [css];
+    // #styles
+    styles = css;
 
-    template = (): Template => html`<div class="value">${counter.value.count}</div>`;
+    template = (): Template => tpl`<div class="value">${counter.count}</div>`;
 }
-
-defineComponent('store-value', StoreValue);

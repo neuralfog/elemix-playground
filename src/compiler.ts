@@ -1,3 +1,7 @@
+import initElemix, {
+    compile as lowerElemix,
+} from '@neuralfog/elemix-compiler-wasm/elemix_compiler.js';
+import elemixWasmURL from '@neuralfog/elemix-compiler-wasm/elemix_compiler_bg.wasm?url';
 import * as esbuild from 'esbuild-wasm/esm/browser.js';
 import wasmURL from 'esbuild-wasm/esbuild.wasm?url';
 import type { Files } from './files';
@@ -5,8 +9,14 @@ import { ENTRY } from './files';
 
 let ready: Promise<void> | null = null;
 
+// Init both wasm engines once: esbuild (bundling) and the elemix compiler
+// (template/hint lowering). Every `.ts` source is lowered by elemix before
+// esbuild ever sees it — `tpl` is compile-only and throws at runtime raw.
 const init = (): Promise<void> => {
-    ready ??= esbuild.initialize({ wasmURL, worker: true });
+    ready ??= Promise.all([
+        esbuild.initialize({ wasmURL, worker: true }),
+        initElemix({ module_or_path: elemixWasmURL }),
+    ]).then(() => undefined);
     return ready;
 };
 
@@ -84,7 +94,23 @@ const virtualFsPlugin = (files: Files): esbuild.Plugin => ({
             if (contents === undefined) {
                 return { errors: [{ text: `Missing file: ${args.path}` }] };
             }
-            return { contents, loader: loaderFor(args.path) };
+            const loader = loaderFor(args.path);
+            // Lower elemix sources (tpl templates + `// #` compiler hints) to
+            // plain runtime calls before bundling. Other loaders pass through.
+            if (loader === 'ts' || loader === 'tsx') {
+                try {
+                    return { contents: lowerElemix(contents), loader };
+                } catch (err) {
+                    return {
+                        errors: [
+                            {
+                                text: `elemix compile error in ${args.path}: ${(err as Error).message ?? String(err)}`,
+                            },
+                        ],
+                    };
+                }
+            }
+            return { contents, loader };
         });
     },
 });

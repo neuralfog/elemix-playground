@@ -1,3 +1,2 @@
-import { signal } from '@neuralfog/elemix/signal';
-
-export const counter = signal({ count: 0 });
+// #state
+export const counter = { count: 0 };

@@ -1,18 +1,16 @@
 import { ELEMIX_VERSION } from './generated/elemix-meta';
 
-const SUBPATHS = [
-    '@neuralfog/elemix',
-    '@neuralfog/elemix/state',
-    '@neuralfog/elemix/directives',
-    '@neuralfog/elemix/render',
-    '@neuralfog/elemix/signal',
-    '@neuralfog/elemix/reactive',
-    '@neuralfog/elemix/utilities',
-];
-
+// Each entry maps to its own dist module. They share the reactive core via a
+// common `./chunk.js` (resolved relative to these URLs), so the singletons stay
+// shared — do NOT collapse them onto one bundle.
 const importMap = (origin: string): string => {
-    const bundle = `${origin}/elemix/elemix.js?v=${ELEMIX_VERSION}`;
-    const imports = Object.fromEntries(SUBPATHS.map((p) => [p, bundle]));
+    const base = `${origin}/elemix`;
+    const v = ELEMIX_VERSION;
+    const imports = {
+        '@neuralfog/elemix': `${base}/index.mjs?v=${v}`,
+        '@neuralfog/elemix/runtime': `${base}/runtime.mjs?v=${v}`,
+        '@neuralfog/elemix/directives': `${base}/directives.mjs?v=${v}`,
+    };
     return JSON.stringify({ imports }, null, 2);
 };
 

@@ -1,6 +1,5 @@
-import { Component, defineComponent, html, type Template } from '@neuralfog/elemix';
-import { state } from '@neuralfog/elemix/state';
-import { ref } from '@neuralfog/elemix/utilities';
+import { Component, ref, tpl } from '@neuralfog/elemix';
+import type { Template } from '@neuralfog/elemix/types';
 
 import css from './RefApp.scss?inline';
 
@@ -8,12 +7,15 @@ type State = {
     width: number;
 };
 
+// #component
 export class RefApp extends Component {
-    static styles = [css];
+    // #styles
+    styles = css;
 
     input = ref<HTMLInputElement>();
 
-    state = state<State>({ width: 0 });
+    // #state
+    state: State = { width: 0 };
 
     focusInput = (): void => {
         this.input.value?.focus();
@@ -23,7 +25,7 @@ export class RefApp extends Component {
         this.state.width = this.input.value?.offsetWidth ?? 0;
     };
 
-    template = (): Template => html`
+    template = (): Template => tpl`
         <p class="note">
             <code>:ref</code> binds a DOM node to a <code>ref()</code>. Read the
             element imperatively through <code>this.input.value</code> — here to
@@ -36,10 +38,8 @@ export class RefApp extends Component {
         </div>
         ${
             this.state.width
-                ? html`<div class="out">Input is ${this.state.width}px wide</div>`
+                ? tpl`<div class="out">Input is ${this.state.width}px wide</div>`
                 : ''
         }
     `;
 }
-
-defineComponent('ref-app', RefApp);

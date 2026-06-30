@@ -1,7 +1,6 @@
-import { Component, defineComponent, html, type Template } from '@neuralfog/elemix';
-import { state } from '@neuralfog/elemix/state';
+import { Component, ref, tpl } from '@neuralfog/elemix';
 import { repeat } from '@neuralfog/elemix/directives';
-import { ref, type Ref } from '@neuralfog/elemix/utilities';
+import type { Ref, Template } from '@neuralfog/elemix/types';
 
 import css from './TodoApp.scss?inline';
 
@@ -12,13 +11,16 @@ type State = {
     todos: Todo[];
 };
 
+// #component
 export class TodoApp extends Component {
-    static styles = [css];
+    // #styles
+    styles = css;
 
-    state = state<State>({
+    // #state
+    state: State = {
         draft: ref(''),
         todos: [{ id: crypto.randomUUID(), text: 'Learn Elemix' }],
-    });
+    };
 
     addItem = (): void => {
         const value = this.state.draft.value.trim();
@@ -32,7 +34,7 @@ export class TodoApp extends Component {
         if (index !== -1) this.state.todos.splice(index, 1);
     };
 
-    template = (): Template => html`
+    template = (): Template => tpl`
         <h3>Todos</h3>
         <div class="row">
             <input
@@ -48,7 +50,7 @@ export class TodoApp extends Component {
         <ul>
             ${repeat(
                 this.state.todos,
-                (todo) => html`
+                (todo) => tpl`
                     <li>
                         <span>${todo.text}</span>
                         <button class="remove" @click=${() => this.removeItem(todo.id)}>×</button>
@@ -59,5 +61,3 @@ export class TodoApp extends Component {
         </ul>
     `;
 }
-
-defineComponent('todo-app', TodoApp);

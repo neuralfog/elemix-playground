@@ -1,6 +1,6 @@
-import { Component, defineComponent, html, type Template } from '@neuralfog/elemix';
-import { state } from '@neuralfog/elemix/state';
+import { Component, tpl } from '@neuralfog/elemix';
 import { when, choose } from '@neuralfog/elemix/directives';
+import type { Template } from '@neuralfog/elemix/types';
 
 import css from './StatusApp.scss?inline';
 
@@ -11,13 +11,16 @@ type State = {
     showLog: boolean;
 };
 
+// #component
 export class StatusApp extends Component {
-    static styles = [css];
+    // #styles
+    styles = css;
 
-    state = state<State>({
+    // #state
+    state: State = {
         status: 'idle',
         showLog: false,
-    });
+    };
 
     set = (status: Status): void => {
         this.state.status = status;
@@ -27,7 +30,7 @@ export class StatusApp extends Component {
         this.state.showLog = !this.state.showLog;
     };
 
-    template = (): Template => html`
+    template = (): Template => tpl`
         <p class="note">
             <code>choose</code> renders the first branch whose condition is
             truthy — use <code>[true, ...]</code> as the fallback.
@@ -46,21 +49,21 @@ export class StatusApp extends Component {
             ${choose([
                 [
                     this.state.status === 'loading',
-                    () => html`<div class="card loading">
+                    () => tpl`<div class="card loading">
                         <span class="spinner"></span>Working…
                     </div>`,
                 ],
                 [
                     this.state.status === 'ready',
-                    () => html`<div class="card ready">✓ Deployed</div>`,
+                    () => tpl`<div class="card ready">✓ Deployed</div>`,
                 ],
                 [
                     this.state.status === 'failed',
-                    () => html`<div class="card failed">✕ Build failed</div>`,
+                    () => tpl`<div class="card failed">✕ Build failed</div>`,
                 ],
                 [
                     true,
-                    () => html`<div class="card idle">Pick a status above</div>`,
+                    () => tpl`<div class="card idle">Pick a status above</div>`,
                 ],
             ])}
         </div>
@@ -71,9 +74,7 @@ export class StatusApp extends Component {
 
         ${when(
             this.state.showLog,
-            () => html`<pre class="log">status = ${this.state.status}</pre>`,
+            () => tpl`<pre class="log">status = ${this.state.status}</pre>`,
         )}
     `;
 }
-
-defineComponent('status-app', StatusApp);

@@ -1,4 +1,5 @@
-import { Component, defineComponent, html, type Template } from '@neuralfog/elemix';
+import { Component, tpl } from '@neuralfog/elemix';
+import type { Template } from '@neuralfog/elemix/types';
 
 import css from './ProfileCard.scss?inline';
 
@@ -8,10 +9,12 @@ type Props = {
     likes: number;
 };
 
+// #component
 export class ProfileCard extends Component<Props> {
-    static styles = [css];
+    // #styles
+    styles = css;
 
-    template = (): Template => html`<div class="card">
+    template = (): Template => tpl`<div class="card">
         <div class="avatar">${this.props.name.charAt(0)}</div>
         <div class="info">
             <strong>${this.props.name}</strong>
@@ -20,5 +23,3 @@ export class ProfileCard extends Component<Props> {
         <div class="likes">❤️ ${this.props.likes}</div>
     </div>`;
 }
-
-defineComponent('profile-card', ProfileCard);

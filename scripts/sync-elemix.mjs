@@ -1,70 +1,41 @@
-import { execFileSync } from 'node:child_process';
 import {
-    existsSync,
-    readdirSync,
-    readFileSync,
-    writeFileSync,
     copyFileSync,
     mkdirSync,
+    readFileSync,
+    readdirSync,
+    rmSync,
+    writeFileSync,
 } from 'node:fs';
-import { resolve, dirname } from 'node:path';
+import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const REPO = 'https://github.com/neuralfog/elemix.git';
-
+// Elemix ships as an npm dependency now — this just stages its browser ESM for
+// the preview iframe. Bump the version with `pnpm add @neuralfog/elemix@<v>`.
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, '..');
-const srcDir = resolve(root, 'elemix-src');
-const pkgDir = resolve(srcDir, 'packages/elemix');
-const bundleDir = resolve(pkgDir, 'bundle');
+const pkgDir = resolve(root, 'node_modules/@neuralfog/elemix');
 const distDir = resolve(pkgDir, 'dist');
 const outDir = resolve(root, 'public/elemix');
 const genDir = resolve(root, 'src/generated');
 
-const args = new Set(process.argv.slice(2));
-const update = args.has('--update') || args.has('-u');
-const force = args.has('--force') || args.has('-f');
-
-const run = (cmd, cmdArgs, cwd) =>
-    execFileSync(cmd, cmdArgs, { cwd, stdio: 'inherit' });
-
-let needsBuild = force;
-
-if (!existsSync(srcDir)) {
-    console.log(`[sync-elemix] cloning ${REPO}`);
-    run('git', ['clone', '--depth', '1', REPO, srcDir], root);
-    needsBuild = true;
-} else if (update) {
-    console.log('[sync-elemix] updating .elemix');
-    run('git', ['-C', srcDir, 'pull', '--ff-only'], root);
-    needsBuild = true;
-}
-
-if (!existsSync(bundleDir) || !existsSync(distDir)) needsBuild = true;
-
-if (needsBuild) {
-    console.log('[sync-elemix] installing elemix deps');
-    run('pnpm', ['install', '--filter', '@neuralfog/elemix...'], srcDir);
-    console.log('[sync-elemix] building bundle + types');
-    run('pnpm', ['--filter', '@neuralfog/elemix', 'run', 'build'], srcDir);
-    run(
-        'pnpm',
-        ['--filter', '@neuralfog/elemix', 'run', 'build:bundle'],
-        srcDir,
-    );
-}
-
-const bundle = readdirSync(bundleDir).find((f) => f.endsWith('.js'));
-if (!bundle) {
-    console.error('[sync-elemix] no bundle produced in packages/elemix/bundle');
-    process.exit(1);
-}
-
-mkdirSync(outDir, { recursive: true });
-copyFileSync(resolve(bundleDir, bundle), resolve(outDir, 'elemix.js'));
-console.log(`[sync-elemix] ${bundle} -> public/elemix/elemix.js`);
-
 const pkg = JSON.parse(readFileSync(resolve(pkgDir, 'package.json'), 'utf-8'));
+
+// Fresh-copy the browser ESM: the entry modules (`index/runtime/directives.mjs`)
+// plus the shared `.js` chunks they import. The import map (see preview.ts) maps
+// each entry specifier; the browser resolves the relative `./chunk` imports
+// against these files, so the shared reactive core loads ONCE and its singletons
+// stay shared across every entry.
+rmSync(outDir, { recursive: true, force: true });
+mkdirSync(outDir, { recursive: true });
+let copied = 0;
+for (const file of readdirSync(distDir)) {
+    if (file.endsWith('.mjs') || file.endsWith('.js')) {
+        copyFileSync(resolve(distDir, file), resolve(outDir, file));
+        copied++;
+    }
+}
+console.log(`[sync-elemix] copied ${copied} files -> public/elemix/`);
+
 mkdirSync(genDir, { recursive: true });
 writeFileSync(
     resolve(genDir, 'elemix-meta.ts'),

@@ -70,9 +70,9 @@ const MANIFEST: { id: string; name: string; files: string[] }[] = [
         files: ['main.ts', 'RenderApp.ts', 'RenderApp.scss'],
     },
     {
-        id: 'direct-bindings',
-        name: 'Direct Bindings',
-        files: ['main.ts', 'DirectApp.ts', 'DirectApp.scss'],
+        id: 'attributes',
+        name: 'Attributes',
+        files: ['main.ts', 'AttributesApp.ts', 'AttributesApp.scss'],
     },
     {
         id: 'conditionals',

@@ -35,18 +35,18 @@
     color: #64748b;
 }
 
-.entry.beforeMount {
+.entry .h {
+    font-weight: 600;
+}
+
+.entry.before-mount {
     color: #7dd3fc;
 }
 
-.entry.onMount {
+.entry.mount {
     color: #86efac;
 }
 
-.entry.onMutation {
-    color: #fbbf24;
-}
-
-.entry.onDispose {
+.entry.dispose {
     color: #f87171;
 }

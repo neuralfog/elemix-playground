@@ -1,7 +1,7 @@
-import { Component, defineComponent, html, type Template } from '@neuralfog/elemix';
-import { state } from '@neuralfog/elemix/state';
+import { Component, tpl } from '@neuralfog/elemix';
+import type { Template } from '@neuralfog/elemix/types';
 
-import css from './DirectApp.scss?inline';
+import css from './AttributesApp.scss?inline';
 
 type Toggle = 'active' | 'rounded' | 'large' | 'disabled';
 
@@ -12,37 +12,40 @@ type State = {
     disabled: boolean;
 };
 
-export class DirectApp extends Component {
-    static styles = [css];
+// #component
+export class AttributesApp extends Component {
+    // #styles
+    styles = css;
 
-    state = state<State>({
+    // #state
+    state: State = {
         active: true,
         rounded: false,
         large: false,
         disabled: false,
-    });
+    };
 
     toggle = (key: Toggle): void => {
         this.state[key] = !this.state[key];
     };
 
-    template = (): Template => html`
+    template = (): Template => tpl`
         <p class="note">
-            The <code>.</code> prefix binds directly to the element.
-            <code>.class={...}</code> toggles classes from an object, while
-            <code>.prop</code> sets a real DOM property (like <code>.checked</code>
-            or <code>.disabled</code>) instead of an attribute.
+            Everything in a template is an attribute. A value binding sets that
+            attribute, and a boolean value toggles its presence. The
+            <code>class</code> binding is special: give it an object and each key
+            is toggled by its truthiness.
         </p>
 
         <div
-            .class=${{
+            class=${{
                 box: true,
                 active: this.state.active,
                 rounded: this.state.rounded,
                 large: this.state.large,
             }}
         >
-            .class
+            class
         </div>
 
         <div class="toggles">
@@ -54,13 +57,11 @@ export class DirectApp extends Component {
         <label class="prop-demo">
             <input
                 type="checkbox"
-                .checked=${this.state.disabled}
+                checked=${this.state.disabled}
                 @change=${() => this.toggle('disabled')}
             />
-            Disable the button (<code>.disabled</code>)
+            Disable the button (<code>disabled</code>)
         </label>
-        <button class="action" .disabled=${this.state.disabled}>Action</button>
+        <button class="action" disabled=${this.state.disabled}>Action</button>
     `;
 }
-
-defineComponent('direct-app', DirectApp);

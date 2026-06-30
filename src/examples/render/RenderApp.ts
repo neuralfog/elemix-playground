@@ -1,9 +1,12 @@
-import { Component, defineComponent, html, type Template } from '@neuralfog/elemix';
+import { Component, tpl } from '@neuralfog/elemix';
+import type { Template } from '@neuralfog/elemix/types';
 
 import css from './RenderApp.scss?inline';
 
+// #component
 export class RenderApp extends Component {
-    static styles = [css];
+    // #styles
+    styles = css;
 
     count = 0;
 
@@ -16,7 +19,7 @@ export class RenderApp extends Component {
         this.render();
     };
 
-    template = (): Template => html`
+    template = (): Template => tpl`
         <p class="note">
             <code>count</code> here is a plain field, not reactive state, so
             mutating it does not re-render. "Increment (silent)" changes the
@@ -33,5 +36,3 @@ export class RenderApp extends Component {
         </div>
     `;
 }
-
-defineComponent('render-app', RenderApp);

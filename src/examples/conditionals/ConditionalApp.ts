@@ -1,5 +1,5 @@
-import { Component, defineComponent, html, type Template } from '@neuralfog/elemix';
-import { state } from '@neuralfog/elemix/state';
+import { Component, tpl } from '@neuralfog/elemix';
+import type { Template } from '@neuralfog/elemix/types';
 
 import css from './ConditionalApp.scss?inline';
 
@@ -8,13 +8,16 @@ type State = {
     showTip: boolean;
 };
 
+// #component
 export class ConditionalApp extends Component {
-    static styles = [css];
+    // #styles
+    styles = css;
 
-    state = state<State>({
+    // #state
+    state: State = {
         loggedIn: false,
         showTip: true,
-    });
+    };
 
     toggleLogin = (): void => {
         this.state.loggedIn = !this.state.loggedIn;
@@ -24,7 +27,7 @@ export class ConditionalApp extends Component {
         this.state.showTip = !this.state.showTip;
     };
 
-    template = (): Template => html`
+    template = (): Template => tpl`
         <p class="note">
             Conditionals are just JavaScript in the template. A ternary swaps
             between two templates; a ternary with an empty branch
@@ -34,11 +37,11 @@ export class ConditionalApp extends Component {
         <div class="panel">
             ${
                 this.state.loggedIn
-                    ? html`<div class="card welcome">
+                    ? tpl`<div class="card welcome">
                           <strong>Welcome back! 🎉</strong>
                           <span>You are signed in.</span>
                       </div>`
-                    : html`<div class="card guest">
+                    : tpl`<div class="card guest">
                           <strong>You are signed out</strong>
                           <span>Sign in to see your dashboard.</span>
                       </div>`
@@ -46,7 +49,7 @@ export class ConditionalApp extends Component {
 
             ${
                 this.state.showTip
-                    ? html`<div class="tip">💡 Toggle the buttons to watch each branch mount and unmount.</div>`
+                    ? tpl`<div class="tip">💡 Toggle the buttons to watch each branch mount and unmount.</div>`
                     : ''
             }
         </div>
@@ -61,5 +64,3 @@ export class ConditionalApp extends Component {
         </div>
     `;
 }
-
-defineComponent('conditional-app', ConditionalApp);

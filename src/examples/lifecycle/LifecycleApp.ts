@@ -1,8 +1,7 @@
-import { Component, defineComponent, html, type Template } from '@neuralfog/elemix';
-import { state } from '@neuralfog/elemix/state';
+import { Component, tpl } from '@neuralfog/elemix';
+import type { Template } from '@neuralfog/elemix/types';
 
 import css from './LifecycleApp.scss?inline';
-
 import './LifecycleChild';
 import './LogView';
 import { clearLog } from './store';
@@ -12,13 +11,16 @@ type State = {
     tick: number;
 };
 
+// #component
 export class LifecycleApp extends Component {
-    static styles = [css];
+    // #styles
+    styles = css;
 
-    state = state<State>({
+    // #state
+    state: State = {
         mounted: false,
         tick: 0,
-    });
+    };
 
     toggleMount = (): void => {
         this.state.mounted = !this.state.mounted;
@@ -32,25 +34,26 @@ export class LifecycleApp extends Component {
         clearLog();
     };
 
-    template = (): Template => html`
+    template = (): Template => tpl`
         <p class="note">
-            Mounting and unmounting the child fires <code>beforeMount</code>,
-            <code>onMount</code> and <code>onDispose</code>. Updating it
-            re-renders and fires <code>onMutation</code>. Each hook appends to
-            the log below.
+            The child tags its lifecycle methods with compiler hints —
+            <code>#before-mount</code>, <code>#mount</code> and
+            <code>#dispose</code>. Mounting and unmounting it fires each hook, in
+            source order, which appends to the log below. Updating bumps the
+            child's <code>tick</code> prop, re-rendering it (watch the number).
         </p>
         <div class="stage">
             ${
                 this.state.mounted
-                    ? html`<lifecycle-child :tick=${this.state.tick} />`
-                    : html`<div class="empty">child unmounted</div>`
+                    ? tpl`<lifecycle-child :tick=${this.state.tick} />`
+                    : tpl`<div class="empty">child unmounted</div>`
             }
         </div>
         <div class="buttons">
             <button @click=${this.toggleMount}>
                 ${this.state.mounted ? 'Unmount' : 'Mount'}
             </button>
-            <button @click=${this.update} .disabled=${!this.state.mounted}>
+            <button @click=${this.update} disabled=${!this.state.mounted}>
                 Update child
             </button>
             <button class="ghost" @click=${this.clear}>Clear log</button>
@@ -58,5 +61,3 @@ export class LifecycleApp extends Component {
         <log-view />
     `;
 }
-
-defineComponent('lifecycle-app', LifecycleApp);

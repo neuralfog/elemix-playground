@@ -1,17 +1,16 @@
-import { signal } from '@neuralfog/elemix/signal';
+export type LogEntry = { id: number; hint: string; fn: string };
 
-export type LogEntry = { id: number; event: string };
-
-export const log = signal<{ entries: LogEntry[] }>({ entries: [] });
+// #state
+export const log: { entries: LogEntry[] } = { entries: [] };
 
 let seq = 0;
 
-export const record = (event: string): void => {
+export const record = (hint: string, fn: string): void => {
     seq++;
-    log.value.entries.push({ id: seq, event });
+    log.entries.push({ id: seq, hint, fn });
 };
 
 export const clearLog = (): void => {
     seq = 0;
-    log.value.entries.splice(0);
+    log.entries.splice(0);
 };

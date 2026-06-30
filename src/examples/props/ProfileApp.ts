@@ -1,9 +1,7 @@
-import { Component, defineComponent, html, type Template } from '@neuralfog/elemix';
-import { state } from '@neuralfog/elemix/state';
-import { ref, type Ref } from '@neuralfog/elemix/utilities';
+import { Component, ref, tpl } from '@neuralfog/elemix';
+import type { Ref, Template } from '@neuralfog/elemix/types';
 
 import css from './ProfileApp.scss?inline';
-
 import './ProfileCard';
 
 type State = {
@@ -12,20 +10,23 @@ type State = {
     likes: number;
 };
 
+// #component
 export class ProfileApp extends Component {
-    static styles = [css];
+    // #styles
+    styles = css;
 
-    state = state<State>({
+    // #state
+    state: State = {
         name: ref('Ada Lovelace'),
         role: ref('Engineer'),
         likes: 0,
-    });
+    };
 
     like = (): void => {
         this.state.likes++;
     };
 
-    template = (): Template => html`
+    template = (): Template => tpl`
         <div class="controls">
             <label>
                 Name
@@ -44,5 +45,3 @@ export class ProfileApp extends Component {
         />
     `;
 }
-
-defineComponent('profile-app', ProfileApp);

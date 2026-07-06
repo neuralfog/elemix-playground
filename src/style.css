@@ -1,21 +1,21 @@
 :root {
-    --bg-0: #0c0c0f;
-    --bg-1: #131318;
-    --bg-2: #1a1a21;
-    --bg-3: #22222b;
-    --hover: #26262f;
+    --bg-0: #060a16;
+    --bg-1: #0b1326;
+    --bg-2: #0d1730;
+    --bg-3: #131d38;
+    --hover: #16244a;
 
-    --border: #26262e;
-    --border-soft: #1d1d24;
+    --border: #17223f;
+    --border-soft: #101a30;
 
-    --text: #e7e7ea;
-    --text-dim: #a0a0ab;
-    --text-faint: #6a6a76;
+    --text: #e7ecfb;
+    --text-dim: #8a9ac4;
+    --text-faint: #64749e;
 
-    --accent: #6366f1;
-    --accent-2: #8b5cf6;
-    --accent-grad: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-    --accent-glow: rgba(99, 102, 241, 0.45);
+    --accent: #2e6bff;
+    --accent-2: #63ecff;
+    --accent-grad: linear-gradient(120deg, #63ecff 0%, #4ca8ff 100%);
+    --accent-glow: rgba(99, 236, 255, 0.4);
 
     --warn: #fbbf24;
     --error: #f87171;
@@ -38,7 +38,7 @@ body,
 }
 
 body {
-    font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-family: "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
     background: var(--bg-0);
     color: var(--text);
     -webkit-font-smoothing: antialiased;
@@ -56,7 +56,7 @@ body {
     gap: 14px;
     padding: 0 16px;
     height: 52px;
-    background: linear-gradient(180deg, #16161c 0%, #111116 100%);
+    background: linear-gradient(180deg, var(--bg-1) 0%, var(--bg-0) 100%);
     border-bottom: 1px solid var(--border);
     position: relative;
     z-index: 5;
@@ -80,42 +80,29 @@ body {
 
 .brand {
     display: flex;
-    align-items: baseline;
-    gap: 7px;
-    font-size: 15px;
-    letter-spacing: -0.01em;
+    align-items: center;
+    gap: 0.3rem;
 }
 
 .brand-mark {
-    margin-right: -10px;
-    font-size: 16px;
-    filter: drop-shadow(0 0 8px var(--accent-glow));
+    display: block;
+    width: 38px;
+    height: 38px;
+    filter: drop-shadow(0 0 10px rgba(99, 236, 255, 0.35));
 }
 
 .brand-name {
-    font-weight: 700;
-    background: var(--accent-grad);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-}
-
-.brand-sub {
-    font-weight: 500;
-    color: var(--text-faint);
+    font-weight: 600;
+    font-size: 1.45rem;
+    letter-spacing: -0.02em;
+    color: var(--text);
 }
 
 .brand-version {
-    font-size: 10.5px;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    padding: 2px 8px;
-    border-radius: 999px;
-    color: #c7c9ff;
-    background: rgba(99, 102, 241, 0.14);
-    border: 1px solid rgba(99, 102, 241, 0.3);
-    align-self: center;
+    margin-left: 0.4rem;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.72rem;
+    color: var(--text-faint);
 }
 
 .brand-version:empty {
@@ -140,7 +127,7 @@ body {
     min-width: 200px;
     border-radius: var(--radius-sm);
     border: 1px solid var(--accent);
-    background: rgba(99, 102, 241, 0.12);
+    background: rgba(46, 107, 255, 0.12);
     color: var(--text);
     cursor: pointer;
     transition: background 0.14s ease, border-color 0.14s ease, box-shadow 0.14s
@@ -148,13 +135,13 @@ body {
 }
 
 .app-trigger:hover {
-    background: rgba(99, 102, 241, 0.2);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.14);
+    background: rgba(46, 107, 255, 0.2);
+    box-shadow: 0 0 0 3px rgba(46, 107, 255, 0.14);
 }
 
 .app-select.open .app-trigger {
     border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+    box-shadow: 0 0 0 3px rgba(46, 107, 255, 0.2);
 }
 
 .app-prefix {
@@ -164,7 +151,7 @@ body {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    color: #fff;
+    color: #041022;
     background: var(--accent-grad);
     border-radius: 4px;
 }
@@ -300,7 +287,7 @@ button {
     padding: 8px 18px;
     border-radius: var(--radius-sm);
     border: none;
-    color: #fff;
+    color: #041022;
     background: var(--accent-grad);
     cursor: pointer;
     box-shadow: 0 2px 10px var(--accent-glow), inset 0 1px 0
@@ -539,7 +526,7 @@ button {
 #editor {
     flex: 1;
     min-height: 0;
-    background: #0e0e13;
+    background: var(--bg-0);
 }
 
 #divider {
@@ -688,7 +675,7 @@ button {
     background: var(--hover);
     color: #fff;
     border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+    box-shadow: 0 0 0 3px rgba(46, 107, 255, 0.12);
 }
 
 #clear-console:active {
@@ -762,7 +749,7 @@ button {
 
 * {
     scrollbar-width: thin;
-    scrollbar-color: #3a3a44 transparent;
+    scrollbar-color: #2a3d63 transparent;
 }
 
 *::-webkit-scrollbar {
@@ -771,13 +758,13 @@ button {
 }
 
 *::-webkit-scrollbar-thumb {
-    background: #2f2f38;
+    background: #2a3d63;
     border-radius: 6px;
     border: 2px solid transparent;
     background-clip: padding-box;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-    background: #3d3d48;
+    background: #3d5688;
     background-clip: padding-box;
 }

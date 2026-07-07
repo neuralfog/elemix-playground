@@ -1,3 +1,4 @@
-import './StoreApp';
+import { createApp } from '@neuralfog/elemix';
+import { StoreApp } from './StoreApp';
 
-document.body.insertAdjacentHTML('beforeend', '<store-app></store-app>');
+createApp(StoreApp).mount(document.body);

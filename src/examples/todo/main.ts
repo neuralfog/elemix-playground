@@ -1,3 +1,4 @@
-import './TodoApp';
+import { createApp } from '@neuralfog/elemix';
+import { TodoApp } from './TodoApp';
 
-document.body.insertAdjacentHTML('beforeend', '<todo-app></todo-app>');
+createApp(TodoApp).mount(document.body);

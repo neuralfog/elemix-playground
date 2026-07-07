@@ -1,3 +1,4 @@
-import './LifecycleApp';
+import { createApp } from '@neuralfog/elemix';
+import { LifecycleApp } from './LifecycleApp';
 
-document.body.insertAdjacentHTML('beforeend', '<lifecycle-app></lifecycle-app>');
+createApp(LifecycleApp).mount(document.body);

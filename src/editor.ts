@@ -325,6 +325,11 @@ const HINTS: Array<{
         doc: 'Renders into the **light DOM** instead of a shadow root (skips `attachShadow`). Styles are not encapsulated. Place above the class.',
     },
     {
+        name: '#shadow',
+        detail: 'class → force a shadow root',
+        doc: 'Forces a **shadow root** (`attachShadow`) when light DOM is the default. Place above the class.',
+    },
+    {
         name: '#styles',
         detail: 'member → component styles (CSS string)',
         doc: 'Component styles, as a string. Adopted into the shadow root. Place above the field.',
@@ -451,12 +456,12 @@ const defineTheme = (): void => {
             { token: 'keyword.flow', foreground: '6aa3ff' },
             { token: 'storage', foreground: '6aa3ff' },
             { token: 'string', foreground: '8ee7b0' },
-            { token: 'string.escape', foreground: '63ecff' },
+            { token: 'string.escape', foreground: '4ca8ff' },
             { token: 'number', foreground: 'ffb37a' },
             { token: 'number.hex', foreground: 'ffb37a' },
             { token: 'regexp', foreground: 'f7768e' },
-            { token: 'type', foreground: '63ecff' },
-            { token: 'type.identifier', foreground: '63ecff' },
+            { token: 'type', foreground: '4ec9b0' },
+            { token: 'type.identifier', foreground: '4ec9b0' },
             { token: 'identifier', foreground: 'e7ecfb' },
             { token: 'delimiter', foreground: '7c89ad' },
             { token: 'delimiter.bracket', foreground: '7c89ad' },
@@ -480,13 +485,13 @@ const defineTheme = (): void => {
             'editor.selectionBackground': '#2e6bff40',
             'editor.inactiveSelectionBackground': '#2e6bff22',
             'editor.wordHighlightBackground': '#2e6bff26',
-            'editorCursor.foreground': '#63ecff',
+            'editorCursor.foreground': '#4ca8ff',
             'editorIndentGuide.background': '#17223f',
             'editorIndentGuide.activeBackground': '#2f3d5c',
             'editorWhitespace.foreground': '#1a2540',
             'editorGutter.background': '#060a16',
-            'editorBracketMatch.background': '#63ecff2e',
-            'editorBracketMatch.border': '#63ecff80',
+            'editorBracketMatch.background': '#4ca8ff2e',
+            'editorBracketMatch.border': '#4ca8ff80',
             'editorWidget.background': '#0b1326',
             'editorWidget.border': '#17223f',
             'editorSuggestWidget.background': '#0b1326',
@@ -521,13 +526,19 @@ export const createEditor = (
     const models = new Map<string, monaco.editor.ITextModel>();
     const changeCallbacks: Array<() => void> = [];
     let currentPath = '';
+    // Each load lives under a fresh directory so a disposed URI is never reused -
+    // reusing `file:///main.ts` across examples leaves the TS worker with stale
+    // diagnostics (wrong "Cannot find module" errors, misplaced squiggles).
+    // Relative imports still resolve since every file shares the same prefix.
+    let generation = 0;
 
     const buildModels = (files: Files): void => {
         for (const model of models.values()) model.dispose();
         models.clear();
 
+        const dir = `gen${generation++}`;
         for (const [path, contents] of Object.entries(files)) {
-            const uri = monaco.Uri.parse(`file:///${path}`);
+            const uri = monaco.Uri.parse(`file:///${dir}/${path}`);
             const model = monaco.editor.createModel(
                 contents,
                 langFor(path),
@@ -539,6 +550,7 @@ export const createEditor = (
             models.set(path, model);
         }
         currentPath = Object.keys(files)[0] ?? '';
+        revalidateTypeScript(models);
     };
 
     buildModels(initial);
@@ -604,6 +616,34 @@ export const createEditor = (
         },
         layout: () => editor.layout(),
     };
+};
+
+// Models are created one at a time. With an already-warm TS worker (soft
+// navigation between examples) the entry file gets validated before its siblings
+// exist, leaving a stale "Cannot find module './App'" that never re-runs. Once
+// every model is registered, force the worker to sync them all, then re-assert
+// the diagnostics options so the whole set is re-validated with all imports
+// resolvable. A cold reload doesn't need this - the worker boots after the
+// models already exist.
+const revalidateTypeScript = (
+    models: Map<string, monaco.editor.ITextModel>,
+): void => {
+    const tsUris = [...models.values()]
+        .filter(
+            (m) =>
+                m.getLanguageId() === 'typescript' ||
+                m.getLanguageId() === 'javascript',
+        )
+        .map((m) => m.uri);
+    if (tsUris.length === 0) return;
+
+    void monaco.languages.typescript
+        .getTypeScriptWorker()
+        .then((getWorker) => getWorker(...tsUris))
+        .then(() => {
+            const ts = monaco.languages.typescript.typescriptDefaults;
+            ts.setDiagnosticsOptions(ts.getDiagnosticsOptions());
+        });
 };
 
 const langFor = (path: string): string => {

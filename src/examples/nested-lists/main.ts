@@ -1,3 +1,4 @@
-import './NestedApp';
+import { createApp } from '@neuralfog/elemix';
+import { NestedApp } from './NestedApp';
 
-document.body.insertAdjacentHTML('beforeend', '<nested-app></nested-app>');
+createApp(NestedApp).mount(document.body);

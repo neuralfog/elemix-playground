@@ -13,9 +13,9 @@
     --text-faint: #64749e;
 
     --accent: #2e6bff;
-    --accent-2: #63ecff;
-    --accent-grad: linear-gradient(120deg, #63ecff 0%, #4ca8ff 100%);
-    --accent-glow: rgba(99, 236, 255, 0.4);
+    --accent-2: #4ca8ff;
+    --accent-grad: linear-gradient(120deg, #4ca8ff 0%, #4ca8ff 100%);
+    --accent-glow: rgba(76, 168, 255, 0.4);
 
     --warn: #fbbf24;
     --error: #f87171;
@@ -88,7 +88,7 @@ body {
     display: block;
     width: 38px;
     height: 38px;
-    filter: drop-shadow(0 0 10px rgba(99, 236, 255, 0.35));
+    filter: drop-shadow(0 0 10px rgba(76, 168, 255, 0.35));
 }
 
 .brand-name {
@@ -436,11 +436,6 @@ button {
     display: block;
 }
 
-.tab .file-icon--svg svg {
-    width: 14px;
-    height: 14px;
-}
-
 .file-label {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -477,50 +472,6 @@ button {
     display: flex;
     flex-direction: column;
     min-width: 0;
-}
-
-#tabs {
-    display: flex;
-    background: var(--bg-1);
-    border-bottom: 1px solid var(--border);
-    overflow-x: auto;
-    padding: 0 6px;
-}
-
-.tab {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 12.5px;
-    padding: 10px 14px;
-    border: none;
-    background: transparent;
-    color: var(--text-faint);
-    cursor: pointer;
-    white-space: nowrap;
-    border-bottom: 2px solid transparent;
-    transition: color 0.12s ease, border-color 0.12s ease;
-}
-
-.tab:hover {
-    color: var(--text-dim);
-}
-
-.tab.active {
-    color: #fff;
-    border-bottom-color: var(--accent);
-}
-
-.tab .file-icon {
-    flex: 0 0 16px;
-    height: 16px;
-    font-size: 8px;
-    border-radius: 4px;
-}
-
-.tab.icon-scss .file-icon,
-.tab .icon-scss {
-    font-size: 11px;
 }
 
 #editor {

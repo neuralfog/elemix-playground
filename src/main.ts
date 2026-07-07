@@ -13,7 +13,6 @@ const $ = <T extends HTMLElement>(sel: string): T => {
 
 const editorEl = $('#editor');
 const fileTreeEl = $('#filetree');
-const tabsEl = $('#tabs');
 const previewIframe = $<HTMLIFrameElement>('#preview');
 const consoleEl = $('#console');
 const runBtn = $<HTMLButtonElement>('#run-btn');
@@ -43,12 +42,9 @@ const iconFor = (path: string): Icon => {
     return { text: '·', cls: 'icon-default' };
 };
 
-const makeEntry = (
-    tag: 'file-item' | 'tab',
-    path: string,
-): HTMLButtonElement => {
+const makeEntry = (path: string): HTMLButtonElement => {
     const btn = document.createElement('button');
-    btn.className = `${tag}${path === editor.current() ? ' active' : ''}`;
+    btn.className = `file-item${path === editor.current() ? ' active' : ''}`;
 
     const icon = iconFor(path);
     const iconEl = document.createElement('span');
@@ -68,7 +64,6 @@ const makeEntry = (
     btn.onclick = () => {
         editor.open(path);
         renderFileTree();
-        renderTabs();
     };
     return btn;
 };
@@ -76,14 +71,7 @@ const makeEntry = (
 const renderFileTree = (): void => {
     fileTreeEl.innerHTML = '<div class="filetree-title">Files</div>';
     for (const path of editor.paths()) {
-        fileTreeEl.appendChild(makeEntry('file-item', path));
-    }
-};
-
-const renderTabs = (): void => {
-    tabsEl.innerHTML = '';
-    for (const path of editor.paths()) {
-        tabsEl.appendChild(makeEntry('tab', path));
+        fileTreeEl.appendChild(makeEntry(path));
     }
 };
 
@@ -108,7 +96,6 @@ const selectApp = (app: App): void => {
     appCurrent.textContent = app.name;
     editor.load(app.files);
     renderFileTree();
-    renderTabs();
     renderAppMenu();
     void run();
 };
@@ -344,5 +331,4 @@ const setupConsoleDivider = (): void => {
 setupDivider();
 setupConsoleDivider();
 renderFileTree();
-renderTabs();
 void run();

@@ -1,3 +1,4 @@
-import './SlotApp';
+import { createApp } from '@neuralfog/elemix';
+import { SlotApp } from './SlotApp';
 
-document.body.insertAdjacentHTML('beforeend', '<slot-app></slot-app>');
+createApp(SlotApp).mount(document.body);

@@ -1,3 +1,4 @@
-import './ChatApp';
+import { createApp } from '@neuralfog/elemix';
+import { ChatApp } from './ChatApp';
 
-document.body.insertAdjacentHTML('beforeend', '<chat-app></chat-app>');
+createApp(ChatApp).mount(document.body);

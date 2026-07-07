@@ -1,3 +1,4 @@
-import './BusApp';
+import { createApp } from '@neuralfog/elemix';
+import { BusApp } from './BusApp';
 
-document.body.insertAdjacentHTML('beforeend', '<bus-app></bus-app>');
+createApp(BusApp).mount(document.body);

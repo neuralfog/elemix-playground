@@ -1,3 +1,4 @@
-import './CounterApp';
+import { createApp } from '@neuralfog/elemix';
+import { CounterApp } from './CounterApp';
 
-document.body.insertAdjacentHTML('beforeend', '<counter-app></counter-app>');
+createApp(CounterApp).mount(document.body);

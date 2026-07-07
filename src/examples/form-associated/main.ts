@@ -1,3 +1,4 @@
-import './FormApp';
+import { createApp } from '@neuralfog/elemix';
+import { FormApp } from './FormApp';
 
-document.body.insertAdjacentHTML('beforeend', '<form-app></form-app>');
+createApp(FormApp).mount(document.body);

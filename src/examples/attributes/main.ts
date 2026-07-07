@@ -1,3 +1,4 @@
-import './AttributesApp';
+import { createApp } from '@neuralfog/elemix';
+import { AttributesApp } from './AttributesApp';
 
-document.body.insertAdjacentHTML('beforeend', '<attributes-app></attributes-app>');
+createApp(AttributesApp).mount(document.body);

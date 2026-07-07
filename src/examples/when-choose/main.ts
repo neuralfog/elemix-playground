@@ -1,3 +1,4 @@
-import './StatusApp';
+import { createApp } from '@neuralfog/elemix';
+import { StatusApp } from './StatusApp';
 
-document.body.insertAdjacentHTML('beforeend', '<status-app></status-app>');
+createApp(StatusApp).mount(document.body);

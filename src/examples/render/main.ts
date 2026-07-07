@@ -1,3 +1,4 @@
-import './RenderApp';
+import { createApp } from '@neuralfog/elemix';
+import { RenderApp } from './RenderApp';
 
-document.body.insertAdjacentHTML('beforeend', '<render-app></render-app>');
+createApp(RenderApp).mount(document.body);

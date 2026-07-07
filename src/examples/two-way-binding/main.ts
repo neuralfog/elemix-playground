@@ -1,3 +1,4 @@
-import './ModelApp';
+import { createApp } from '@neuralfog/elemix';
+import { ModelApp } from './ModelApp';
 
-document.body.insertAdjacentHTML('beforeend', '<model-app></model-app>');
+createApp(ModelApp).mount(document.body);

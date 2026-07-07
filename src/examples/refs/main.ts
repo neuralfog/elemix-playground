@@ -1,3 +1,4 @@
-import './RefApp';
+import { createApp } from '@neuralfog/elemix';
+import { RefApp } from './RefApp';
 
-document.body.insertAdjacentHTML('beforeend', '<ref-app></ref-app>');
+createApp(RefApp).mount(document.body);

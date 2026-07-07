@@ -1,3 +1,4 @@
-import './RatingApp';
+import { createApp } from '@neuralfog/elemix';
+import { RatingApp } from './RatingApp';
 
-document.body.insertAdjacentHTML('beforeend', '<rating-app></rating-app>');
+createApp(RatingApp).mount(document.body);

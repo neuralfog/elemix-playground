@@ -1,5 +1,7 @@
-# ⚡ Elemix Playground
+<img src=".readme/elemix-banner.svg" alt="elemix - Reactive Elements" width="100%" />
 
-In-browser playground for [Elemix](https://github.com/neuralfog/elemix) - a multi-file editor with TypeScript IntelliSense, SCSS, and a live preview.
+# Elemix Playground
+
+An in-browser playground for elemix - a multi-file editor with TypeScript IntelliSense, SCSS, and a live preview.
 
 **[playground.elemix.dev](https://playground.elemix.dev)**

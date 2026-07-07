@@ -1,3 +1,4 @@
-import './ConditionalApp';
+import { createApp } from '@neuralfog/elemix';
+import { ConditionalApp } from './ConditionalApp';
 
-document.body.insertAdjacentHTML('beforeend', '<conditional-app></conditional-app>');
+createApp(ConditionalApp).mount(document.body);

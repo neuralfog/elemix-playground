@@ -1,3 +1,4 @@
-import './ProfileApp';
+import { createApp } from '@neuralfog/elemix';
+import { ProfileApp } from './ProfileApp';
 
-document.body.insertAdjacentHTML('beforeend', '<profile-app></profile-app>');
+createApp(ProfileApp).mount(document.body);

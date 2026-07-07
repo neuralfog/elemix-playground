@@ -22,8 +22,8 @@
         "vite": "8.0.16"
     },
     "dependencies": {
-        "@neuralfog/elemix": "0.9.0-dev.12",
-        "@neuralfog/elemix-compiler-wasm": "0.9.0-dev.12",
+        "@neuralfog/elemix": "0.9.0-dev.13",
+        "@neuralfog/elemix-compiler-wasm": "0.9.0-dev.13",
         "esbuild-wasm": "0.28.0",
         "monaco-editor": "0.53.0",
         "sass": "1.100.0"

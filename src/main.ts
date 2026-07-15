@@ -1,7 +1,7 @@
 import { createEditor } from './editor';
 import { compile } from './compiler';
 import { onPreviewMessage, renderPreview } from './preview';
-import { APPS, DEFAULT_APP, type App } from './files';
+import { APPS, CATEGORISED, DEFAULT_APP, type App } from './files';
 import { ELEMIX_VERSION } from './generated/elemix-meta';
 import { TS_ICON, SASS_ICON } from './icons';
 
@@ -102,21 +102,28 @@ const selectApp = (app: App): void => {
 
 const renderAppMenu = (): void => {
     appMenu.innerHTML = '';
-    for (const app of APPS) {
-        const item = document.createElement('button');
-        item.className = `app-option${app.id === currentAppId ? ' active' : ''}`;
-        item.setAttribute('role', 'option');
+    for (const category of CATEGORISED) {
+        const title = document.createElement('div');
+        title.className = 'app-group-title';
+        title.textContent = category.name;
+        appMenu.appendChild(title);
 
-        const name = document.createElement('span');
-        name.textContent = app.name;
+        for (const app of category.apps) {
+            const item = document.createElement('button');
+            item.className = `app-option${app.id === currentAppId ? ' active' : ''}`;
+            item.setAttribute('role', 'option');
 
-        const check = document.createElement('span');
-        check.className = 'app-check';
-        check.textContent = app.id === currentAppId ? '✓' : '';
+            const name = document.createElement('span');
+            name.textContent = app.name;
 
-        item.append(name, check);
-        item.onclick = () => selectApp(app);
-        appMenu.appendChild(item);
+            const check = document.createElement('span');
+            check.className = 'app-check';
+            check.textContent = app.id === currentAppId ? '✓' : '';
+
+            item.append(name, check);
+            item.onclick = () => selectApp(app);
+            appMenu.appendChild(item);
+        }
     }
 };
 

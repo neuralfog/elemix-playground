@@ -27,14 +27,15 @@ code {
 
 .bar {
     display: flex;
-    gap: 8px;
+    align-items: center;
+    gap: 12px;
     margin-bottom: 16px;
 }
 
 button {
     font: inherit;
     font-size: 13px;
-    padding: 7px 12px;
+    padding: 7px 14px;
     color: #1e293b;
     background: #e2e8f0;
     border: none;
@@ -47,74 +48,37 @@ button:hover {
     background: #cbd5e1;
 }
 
-.stage {
-    margin-bottom: 14px;
+.score {
+    min-width: 40px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
 }
 
 .card {
-    display: flex;
-    align-items: center;
-    gap: 10px;
     padding: 18px 20px;
     font-size: 14px;
     font-weight: 600;
     border-radius: 12px;
 }
 
-.card.idle {
-    color: #64748b;
-    background: #f1f5f9;
-    border: 1px dashed #cbd5e1;
-}
-
-.card.loading {
-    color: #3730a3;
-    background: #e0e7ff;
-}
-
-.card.ready {
+.card.excellent {
     color: #166534;
     background: #dcfce7;
 }
 
-.card.failed {
+.card.good {
+    color: #3730a3;
+    background: #e0e7ff;
+}
+
+.card.fair {
+    color: #92400e;
+    background: #fef3c7;
+}
+
+.card.poor {
     color: #991b1b;
     background: #fee2e2;
-}
-
-.spinner {
-    width: 14px;
-    height: 14px;
-    border: 2px solid #c7d2fe;
-    border-top-color: #4338ca;
-    border-radius: 50%;
-    animation: spin 0.7s linear infinite;
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-.link {
-    background: none;
-    padding: 4px 0;
-    color: var(--accent);
-    font-size: 13px;
-}
-
-.link:hover {
-    background: none;
-    text-decoration: underline;
-}
-
-.log {
-    margin: 10px 0 0;
-    padding: 12px 14px;
-    font-family: ui-monospace, monospace;
-    font-size: 12px;
-    color: #e2e8f0;
-    background: #0f172a;
-    border-radius: 8px;
 }

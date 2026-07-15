@@ -30,13 +30,6 @@ export class AttributesApp extends Component {
     };
 
     template = (): Template => tpl`
-        <p class="note">
-            Everything in a template is an attribute. A value binding sets that
-            attribute, and a boolean value toggles its presence. The
-            <code>class</code> binding is special: give it an object and each key
-            is toggled by its truthiness.
-        </p>
-
         <div
             class=${{
                 box: true,

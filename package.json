@@ -16,16 +16,16 @@
         "lint:fix": "biome format --write && biome lint --fix"
     },
     "devDependencies": {
-        "@biomejs/biome": "1.9.4",
+        "@biomejs/biome": "2.5.4",
         "@neuralfog/biome-config": "0.1.2",
-        "typescript": "6.0.3",
-        "vite": "8.0.16"
+        "typescript": "7.0.2",
+        "vite": "8.1.4"
     },
     "dependencies": {
-        "@neuralfog/elemix": "0.9.0-dev.13",
-        "@neuralfog/elemix-compiler-wasm": "0.9.0-dev.13",
-        "esbuild-wasm": "0.28.0",
-        "monaco-editor": "0.53.0",
-        "sass": "1.100.0"
+        "@neuralfog/elemix": "0.9.0-dev.22",
+        "@neuralfog/elemix-compiler-wasm": "0.9.0-dev.22",
+        "esbuild-wasm": "0.28.1",
+        "monaco-editor": "0.55.1",
+        "sass": "1.101.0"
     }
 }

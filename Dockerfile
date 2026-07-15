@@ -9,6 +9,7 @@ RUN npm install -g pnpm@11
 
 # install deps first for layer caching
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY patches ./patches
 RUN pnpm install --frozen-lockfile
 
 COPY . .

@@ -25,12 +25,6 @@ export class ModelApp extends Component {
     };
 
     template = (): Template => tpl`
-        <p class="note">
-            <code>~model</code> two-way binds an input to a ref.
-            <code>~onmodel</code> runs a transform on every keystroke before the
-            value is stored - here it clamps the number to 0–100.
-        </p>
-
         <label>
             Name (<code>~model</code>)
             <input type="text" ~model=${this.state.name} />

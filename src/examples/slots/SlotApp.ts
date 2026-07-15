@@ -10,11 +10,6 @@ export class SlotApp extends Component {
     styles = css;
 
     template = (): Template => tpl`
-        <p class="note">
-            Slots project light-DOM children into a component's shadow DOM.
-            <code>hasSlot('footer')</code> lets the card render an area only when
-            matching content is provided.
-        </p>
         <app-card>
             <span slot="header">⭐ Featured</span>
             <p>Default-slot content lives in the card body.</p>

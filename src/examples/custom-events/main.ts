@@ -1,4 +1,4 @@
 import { createApp } from '@neuralfog/elemix';
-import { RatingApp } from './RatingApp';
+import { CartApp } from './CartApp';
 
-createApp(RatingApp).mount(document.body);
+createApp(CartApp).mount(document.body);

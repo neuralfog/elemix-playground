@@ -3,3 +3,14 @@ allowBuilds:
   '@parcel/watcher': true
 minimumReleaseAgeExclude:
   - '@neuralfog/*'
+  - '@biomejs/biome@2.5.4'
+  - '@biomejs/cli-darwin-arm64@2.5.4'
+  - '@biomejs/cli-darwin-x64@2.5.4'
+  - '@biomejs/cli-linux-arm64-musl@2.5.4'
+  - '@biomejs/cli-linux-arm64@2.5.4'
+  - '@biomejs/cli-linux-x64-musl@2.5.4'
+  - '@biomejs/cli-linux-x64@2.5.4'
+  - '@biomejs/cli-win32-arm64@2.5.4'
+  - '@biomejs/cli-win32-x64@2.5.4'
+patchedDependencies:
+  monaco-editor@0.55.1: patches/monaco-editor@0.55.1.patch

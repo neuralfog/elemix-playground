@@ -51,13 +51,6 @@ export class ChatApp extends Component {
     }
 
     template = (): Template => tpl`
-        <p class="note">
-            <code>#effect</code> marks a method that re-runs whenever the reactive
-            state it reads changes - use it for side effects or observing changes
-            to reactive state. Here <code>autoscroll()</code> reads the messages and
-            pins the thread to the bottom after each one
-            (<code>scrollTop = scrollHeight</code>).
-        </p>
         <div class="log" :ref=${this.log}>
             ${repeat(
                 this.state.messages,

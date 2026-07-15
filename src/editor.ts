@@ -146,12 +146,11 @@ const configureTypeScript = (): void => {
 
     defineTheme();
 
-    const ts = monaco.languages.typescript.typescriptDefaults;
+    const ts = monaco.typescript.typescriptDefaults;
     ts.setCompilerOptions({
-        target: monaco.languages.typescript.ScriptTarget.ES2020,
-        module: monaco.languages.typescript.ModuleKind.ESNext,
-        moduleResolution:
-            monaco.languages.typescript.ModuleResolutionKind.NodeJs,
+        target: monaco.typescript.ScriptTarget.ES2020,
+        module: monaco.typescript.ModuleKind.ESNext,
+        moduleResolution: monaco.typescript.ModuleResolutionKind.NodeJs,
         experimentalDecorators: true,
         useDefineForClassFields: false,
         allowNonTsExtensions: true,
@@ -311,6 +310,7 @@ const HINTS: Array<{
     {
         name: '#tag',
         detail: 'class → set the custom element tag name',
+        // biome-ignore lint/suspicious/noTemplateCurlyInString: monaco snippet placeholder syntax
         snippet: '#tag ${1:my-element}',
         doc: 'Sets the custom element tag name.\n\n```ts\n// #tag user-card\n```\n\nPlace above the class. The name must contain a hyphen.',
     },
@@ -625,6 +625,23 @@ export const createEditor = (
 // the diagnostics options so the whole set is re-validated with all imports
 // resolvable. A cold reload doesn't need this - the worker boots after the
 // models already exist.
+// On a cold load the TS language mode registers asynchronously, so
+// `getTypeScriptWorker()` rejects with "TypeScript not registered!" if called
+// too early. Retry on a short backoff until the worker is available.
+const resolveTsWorker = async (
+    attempts = 40,
+): Promise<
+    Awaited<ReturnType<typeof monaco.typescript.getTypeScriptWorker>>
+> => {
+    try {
+        return await monaco.typescript.getTypeScriptWorker();
+    } catch (err) {
+        if (attempts <= 0) throw err;
+        await new Promise((resolve) => setTimeout(resolve, 50));
+        return resolveTsWorker(attempts - 1);
+    }
+};
+
 const revalidateTypeScript = (
     models: Map<string, monaco.editor.ITextModel>,
 ): void => {
@@ -637,13 +654,13 @@ const revalidateTypeScript = (
         .map((m) => m.uri);
     if (tsUris.length === 0) return;
 
-    void monaco.languages.typescript
-        .getTypeScriptWorker()
+    void resolveTsWorker()
         .then((getWorker) => getWorker(...tsUris))
         .then(() => {
-            const ts = monaco.languages.typescript.typescriptDefaults;
+            const ts = monaco.typescript.typescriptDefaults;
             ts.setDiagnosticsOptions(ts.getDiagnosticsOptions());
-        });
+        })
+        .catch(() => {});
 };
 
 const langFor = (path: string): string => {

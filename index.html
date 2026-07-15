@@ -28,7 +28,7 @@
                 </span>
 
                 <div class="app-select" id="app-select">
-                    <button class="app-trigger" id="app-trigger" aria-haspopup="listbox" aria-expanded="false">
+                    <button type="button" class="app-trigger" id="app-trigger" aria-haspopup="listbox" aria-expanded="false">
                         <span class="app-prefix">Example</span>
                         <span class="app-trigger-label" id="app-current">Counter</span>
                         <span class="app-caret">▾</span>
@@ -65,7 +65,7 @@
                     <input type="checkbox" id="auto-run" checked />
                     Auto-run
                 </label>
-                <button id="run-btn" title="Run (Ctrl/Cmd+Enter)">Run</button>
+                <button type="button" id="run-btn" title="Run (Ctrl/Cmd+Enter)">Run</button>
             </header>
             <main id="workspace">
                 <nav id="filetree"></nav>
@@ -79,11 +79,11 @@
                     <div id="console-divider"></div>
                     <div id="console-panel">
                         <div id="console-header">
-                            <button id="toggle-console" class="console-toggle" title="Hide console" aria-label="Toggle console">▾</button>
+                            <button type="button" id="toggle-console" class="console-toggle" title="Hide console" aria-label="Toggle console">▾</button>
                             <span class="console-title">Console</span>
                             <span id="console-count" class="console-count"></span>
                             <div class="spacer"></div>
-                            <button id="clear-console" title="Clear console">Clear</button>
+                            <button type="button" id="clear-console" title="Clear console">Clear</button>
                         </div>
                         <div id="console"></div>
                     </div>

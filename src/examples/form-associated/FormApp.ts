@@ -24,13 +24,6 @@ export class FormApp extends Component {
     };
 
     template = (): Template => tpl`
-        <p class="note">
-            The <code>#form</code> compiler hint makes a component
-            form-associated - Elemix attaches <code>ElementInternals</code> so it
-            can join a native <code>&lt;form&gt;</code>. The star rating and the
-            submit button below are both tagged <code>#form</code>, so the form
-            sees their values on submit.
-        </p>
         <form @submit=${this.submit}>
             <label>
                 Name

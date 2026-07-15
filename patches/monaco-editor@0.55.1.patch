@@ -1,0 +1,12 @@
+diff --git a/esm/vs/language/typescript/tsWorker.js b/esm/vs/language/typescript/tsWorker.js
+index d875e075fea0eb8da7159f2168660231ad017663..eb9f41ca0f7dc98e25f8f858582ae64049036bdd 100644
+--- a/esm/vs/language/typescript/tsWorker.js
++++ b/esm/vs/language/typescript/tsWorker.js
+@@ -149,6 +149,7 @@ class TypeScriptWorker {
+     for (const tsDiagnostic of tsDiagnostics) {
+       const diagnostic = { ...tsDiagnostic };
+       diagnostic.file = diagnostic.file ? { fileName: diagnostic.file.fileName } : void 0;
++      diagnostic.repopulateInfo = void 0;
+       if (tsDiagnostic.relatedInformation) {
+         diagnostic.relatedInformation = [];
+         for (const tsRelatedDiagnostic of tsDiagnostic.relatedInformation) {

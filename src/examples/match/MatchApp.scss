@@ -1,0 +1,103 @@
+:host {
+    --accent: #6366f1;
+    display: block;
+    max-width: 460px;
+    font-family: system-ui, sans-serif;
+    color: #1e293b;
+}
+
+.note {
+    margin: 0 0 18px;
+    padding: 12px 14px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #475569;
+    background: #f1f5f9;
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+}
+
+code {
+    font-family: ui-monospace, monospace;
+    font-size: 12px;
+    background: #e2e8f0;
+    padding: 1px 5px;
+    border-radius: 4px;
+}
+
+section {
+    margin-bottom: 22px;
+}
+
+h3 {
+    margin: 0 0 10px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #64748b;
+}
+
+.bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+button {
+    font: inherit;
+    font-size: 13px;
+    padding: 7px 12px;
+    color: #1e293b;
+    background: #e2e8f0;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+button:hover {
+    background: #cbd5e1;
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 18px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 12px;
+    color: #3730a3;
+    background: #e0e7ff;
+}
+
+.card.home {
+    color: #166534;
+    background: #dcfce7;
+}
+
+.card.profile {
+    color: #3730a3;
+    background: #e0e7ff;
+}
+
+.card.settings {
+    color: #92400e;
+    background: #fef3c7;
+}
+
+.card.circle {
+    color: #9d174d;
+    background: #fce7f3;
+}
+
+.card.square {
+    color: #0369a1;
+    background: #e0f2fe;
+}
+
+.card.rect {
+    color: #4338ca;
+    background: #eef2ff;
+}

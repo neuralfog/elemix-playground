@@ -28,12 +28,6 @@ export class ConditionalApp extends Component {
     };
 
     template = (): Template => tpl`
-        <p class="note">
-            Conditionals are just JavaScript in the template. A ternary swaps
-            between two templates; a ternary with an empty branch
-            (<code>: ''</code>) renders nothing.
-        </p>
-
         <div class="panel">
             ${
                 this.state.loggedIn

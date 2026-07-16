@@ -12,5 +12,6 @@ minimumReleaseAgeExclude:
   - '@biomejs/cli-linux-x64@2.5.4'
   - '@biomejs/cli-win32-arm64@2.5.4'
   - '@biomejs/cli-win32-x64@2.5.4'
+  - vite@8.1.5
 patchedDependencies:
   monaco-editor@0.55.1: patches/monaco-editor@0.55.1.patch

@@ -37,6 +37,7 @@ const ELEMIX_PATHS: Record<string, string[]> = {
     '@neuralfog/elemix/directives': [
         'node_modules/@neuralfog/elemix/directives',
     ],
+    '@neuralfog/elemix/types': ['node_modules/@neuralfog/elemix/src/types'],
     '@neuralfog/elemix/render': ['node_modules/@neuralfog/elemix/render'],
     '@neuralfog/elemix/signal': ['node_modules/@neuralfog/elemix/signal'],
     '@neuralfog/elemix/reactive': ['node_modules/@neuralfog/elemix/reactive'],

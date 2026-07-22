@@ -12,11 +12,11 @@ importers:
   .:
     dependencies:
       '@neuralfog/elemix':
-        specifier: 0.9.0-dev.25
-        version: 0.9.0-dev.25
+        specifier: 0.9.0-dev.27
+        version: 0.9.0-dev.27
       '@neuralfog/elemix-compiler-wasm':
-        specifier: 0.9.0-dev.25
-        version: 0.9.0-dev.25
+        specifier: 0.9.0-dev.27
+        version: 0.9.0-dev.27
       esbuild-wasm:
         specifier: 0.28.1
         version: 0.28.1
@@ -119,11 +119,11 @@ packages:
     peerDependencies:
       '@biomejs/biome': 1.9.4
 
-  '@neuralfog/elemix-compiler-wasm@0.9.0-dev.25':
-    resolution: {integrity: sha512-rx/AlGXBxIa0eqnAfUpyCw5zNfLv0xaU7C2WSkKdPe719uK6FSCOTXb24VunaHEMp7xAOn9SH6r+7thfTHQsAA==}
+  '@neuralfog/elemix-compiler-wasm@0.9.0-dev.27':
+    resolution: {integrity: sha512-4e9WEK5b/Sb1X4j/FPs9aSdglQH3vUa1GZd/5bL9lsPg0ydU+EbSeCpfVmSh6DtflisNSLgG8L+78z2k1pe0zQ==}
 
-  '@neuralfog/elemix@0.9.0-dev.25':
-    resolution: {integrity: sha512-3jyjkadJzhywpOc66UHbup0cBgr/J26b5KuRJlgnm0hZdhsTzWz2f0imdPjukA1bFjlApJmKN3CR7huqXFPhnQ==}
+  '@neuralfog/elemix@0.9.0-dev.27':
+    resolution: {integrity: sha512-GH9UhKFo8Q/rxI1fWFinojiwSYevQZHS2kSGQKKFOnNBOw6+E7haEYxjR84Ksp1GtUZMbG6wg2s72yfpti8B0A==}
 
   '@oxc-project/types@0.139.0':
     resolution: {integrity: sha512-r9gHphtCs+1M7J0pw6Sn/hh/Wpa/iQrOOkrNAlVLF/gHq+/CJmHIWKKUUhdWjcD6CIa8idarspCsASiXCXvFUw==}
@@ -723,9 +723,9 @@ snapshots:
     dependencies:
       '@biomejs/biome': 2.5.4
 
-  '@neuralfog/elemix-compiler-wasm@0.9.0-dev.25': {}
+  '@neuralfog/elemix-compiler-wasm@0.9.0-dev.27': {}
 
-  '@neuralfog/elemix@0.9.0-dev.25': {}
+  '@neuralfog/elemix@0.9.0-dev.27': {}
 
   '@oxc-project/types@0.139.0': {}
 
